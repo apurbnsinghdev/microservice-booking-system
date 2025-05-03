@@ -1,4 +1,5 @@
 # Bad PR Review:
+So far, the initial structure is good, but there's room for improvement.
 
 ## Pull Request Summary
 "Implemented checkout logic in cart. Also added slot checking and order placing."
@@ -9,16 +10,12 @@ No test case or unit test, ingetration test not found
 ---
 
 ## Code (Bad Sample)
-```python
-```
-
----
+No time found for code rivew will continue
 
 ## Review Feedback
 
 ### Naming
 - Function `checkout()` is too generic. Should be `process_checkout()` or `perform_checkout()`.
-- Variable `services` is misleading; it actually holds cart items.
 
 ### Logic Separation
 - All business logic is packed in one endpoint function.
