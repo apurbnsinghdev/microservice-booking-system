@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+
+  catalog_service:
+    build: ./services/catalog_service
+    container_name: catalog_service
+    ports:
+      - "8001:8001"
+    depends_on:
+      - catalog_db
+    environment:
+      - DATABASE_URL=postgresql://catalog_user:catalog_pass@localhost:5432/catalog_db
+
+  cart_service:
+    build: ./services/cart_service
+    container_name: cart_service
+    ports:
+      - "8000:8000"
+    depends_on:
+      - cart_db
+    environment:
+      DATABASE_URL: postgresql://cart_user:cart_pass@localhost:5432/cart_db
+  slot_service:
+    build: ./services/slot_service
+    container_name: slot_service
+    ports:
+      - "8002:8002"
+    depends_on:
+      - redis
+
+  catalog_db:
+    image: postgres:15
+    container_name: catalog_db
+    environment:
+      POSTGRES_USER: catalog_user
+      POSTGRES_PASSWORD: catalog_pass
+      POSTGRES_DB: catalog_db
+    ports:
+      - "5433:5432"
+
+  cart_db:
+    image: postgres:15
+    container_name: cart_db
+    environment:
+      POSTGRES_USER: cart_user
+      POSTGRES_PASSWORD: cart_pass
+      POSTGRES_DB: cart_db
+    ports:
+      - "5434:5432"
+
+  redis:
+    image: redis:7
+    container_name: redis
+    ports:
+      - "6379:6379"
